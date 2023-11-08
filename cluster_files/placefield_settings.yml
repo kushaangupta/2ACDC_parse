@@ -1,0 +1,43 @@
+server:
+  host:     'login2.int.janelia.org' # cluster address.
+  username: 'winnubstj' # Username to login to cluster.
+  n_cores: 5          # Number of cluster cores to use.
+  use_parallel: True  # use parallel processes for shuffle.
+  parallel_processes: 5 # number of parallel processes to run.
+  output_postfix: '' # this gets added to the output folder name. (for multiple runs with different settings)
+placefield:
+  bin_size: 5           # spatial bin size in cm.
+config:
+  # minimum speed for placefield detection.
+  min_speed: 5                    # min speed for frame to be considered. in cm/s
+  # df calculation.
+  df_sigma_baseline: 20           # sigma used in baseline calculation
+  df_window_size: 600             # window size used in baseline calculation in frames
+  # speed calculation.
+  speed_window_size: 100          # rolling window size for speed calculation in ms.
+  speed_ignore_threshold: 7.5     # ignore high distance moved per frame (teleports)
+  # bin calculation
+  bin_smooth_size: 3              # smooth window size in frames.
+  bin_base_quantile: 0.25         # quantile value thats used for the baseline
+  bin_signal_threshold: 0.25      # percentage of difference between max and baseline
+  # placefield
+  pf_min_bin_size: 15              # min. size of placefield in cm
+  pf_max_bin_size: 120            # max size of placefield in cm
+  pf_threshold_factor: 4          # signal inside placefield needs to be higher by this factor compared to outside.
+  pf_max_bin_perc_mean: 0.1       # One bin needs to be atleast this percentage of the mean fluorescence.
+  pf_min_df_value: 0.075          # max df value in one bin needs to be atleast this value.
+  pf_include_all_fields: True     # calculate outside field values by considering ALL possible placefields of cell.
+  # signal detection
+  ## baseline detection.
+  signal_bin_size: 50             # bin this number of consecutive frames
+  signal_base_quantile: 0.25      # determine the baseline std by selecting binned frames below this quantile value
+  ## event detection
+  signal_onset_factor: 5          # threshold deviation factor * std from baseline that determines onset of event
+  signal_end_factor: 1            # threshold deviation factor * std from baseline that determines end of event.
+  # correlated activity.
+  cor_min_event_correlation: 0.2  # Placefield traversals must be associated with event this many times.
+  cor_shuffle_block_size: 100     # size of frame chuncks used in shuffle.
+  # bootstrap signficance test
+  bootstrap_do_test: True           # perform shuffle.
+  bootstrap_num_shuffles: 1000          # number of shuffles to perform in analysis.         
+  bootstrap_sig_threshold: 0.05         # signficance threshold used in shuffle.
