@@ -118,13 +118,13 @@ def process_placefield_data(input_path, output_path, settings_file, session_id, 
         print('Done!')
         return pf_detect
 
-def send_placefield_job(info, server):
+def send_placefield_job(info, server, moreargs='', pf_script_path='~/.linear2ac/placefield_job.sh'):
     job_id = f"{info['session_id']}-{info['reward_id']}-{uuid.uuid4().hex[:3].upper()}"
     # connect to ssh
     ssh = ssh_connect(server['host'], server['username'], server['password'],verbose=False)
     # run command
     run_command = f"bsub -n {server['n_cores']} -J {job_id} "
-    run_command +=f'-R"select[avx512]" -o logs/out-{job_id}.txt "~/placefield_job.sh'
+    run_command +=f'{moreargs} -o logs/out-{job_id}.txt "{pf_script_path}'
     # arguments.
     for key in ['input_path','output_path','settings_file','session_id','cueset','reward_id','trial_status','bin_size','force_recalc']:
         run_command+= f' \'{info[key]}\''
