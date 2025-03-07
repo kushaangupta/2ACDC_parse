@@ -8,7 +8,7 @@ REWARD_ID=$6
 TRIAL_STATUS=$7
 BIN_SIZE=$8
 FORCE_RECALC=$9
-CONDA_ENV=${10:-vr2p}  # Default to 'vr2p' if 10th argument is not provided
+CONDA_ENV=${10:-suite2p}  # Default to 'suite2p' if argument is not provided
 
 echo "input path: $INPUT_PATH"
 echo "output path: $OUTPUT_PATH"
@@ -19,6 +19,7 @@ echo "trial status: $TRIAL_STATUS"
 echo "bin size: $BIN_SIZE"
 echo "force recalc: $FORCE_RECALC"
 
+conda init bash
 conda activate $CONDA_ENV
 echo $CONDA_DEFAULT_ENV
 
