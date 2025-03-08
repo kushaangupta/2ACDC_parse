@@ -57,3 +57,6 @@ doc/_build/
 
 # Development
 poetry.lock
+
+# Custom
+examples/logs/
